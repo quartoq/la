@@ -1,0 +1,30 @@
+https://www.apachelounge.com/
+В скачанном архиве есть Readme.txt с описанием процедуры установки.
+распаковать, в каталоге Apache24 содержатся все файлы apache, кроме библиотек visual c++ и определённым образом настроенных под нужды пользователя конфигурационных файлов.
+Для работы под windows необходимы библиотеки Visual С++.
+Например, если дистрибутив идёт с пометкой VC14, это означает, что скомпилированные исходники требуют для своей работы наличия в операционной системе библиотек Microsoft Visual C++ 2015 (Visual C++ Redistributable for Visual Studio 2015 как о них написано на оф. сайте), которые нужно скачать и установить.
+
+апач как служба
+HTTPD_HOME\httpd.exe -k install
+
+прикрутить php
+
+http://php.net
+ раздел загрузок (Downloads) -> загрузки для windows (Windows Downloads)
+распаковываем, проверяем что в корневом каталоге есть файл php7apache2_4.dll (он есть только потокобезопасной версии php) и добавляем
+конфигурационнsq файле apache
+LoadModule php7_module "путь к файлам php\php7apache2_4.dll"
+AddType application/x-httpd-php .php
+PHPIniDir "путь к файлам php"
+
+Тут нужно учитывать, что в 7 версии php dll-библиотека, которая релизует модуль php для apache называется php7apache2_4.dll, а не php5apache2_4.dll как она называлась в 5 версии php.
+
+Здесь мы также указали путь к каталогу с конфигурационным файлом php php.ini, образцы этого файла есть прямо в этом же каталоге и называются
+php.ini-development
+и
+php.ini-production
+
+APACHE_HTTP_SERVER_HOME\bin\httpd.exe - f путь\some_httpd.conf
+
+терминал phpstorm (alt+f12)
+
