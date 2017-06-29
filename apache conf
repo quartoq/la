@@ -1,0 +1,68 @@
+Основные директивы в этих конфигурационных файлах, за исключением тех, что уже заданы, следующие :
+- ServerRoot
+- DocumentRoot
+- Directory для DocumentRoot
+- директивы прикручивания к apache модуля php
+
+Директива ServerRoot задаёт корневой каталогс файлами apache  - Apache24
+ServerRoot ищется относительно текущей директории, из которой запущен apache в командной строке.
+
+Директива DocumentRoot задаёт текущую рабочую директорию (current working directory, cwd), с которой будет работать apache после запуска 
+apache ищет DocumentRoot относительно своего домашнего каталога 
+
+Директива Directory для DocumentRoot
+Директива Directory используется для настройки директорий и прежде всего каталога DocumentRoot.
+
+На хостингах для DocumentRoot обычно задают следующие разрешения:
+- разрешено использование файлов .htaccess
+- разрешено следование символическим ссылкам
+- разрешен просмотр содержимого каталогов при отсутствии в них индексных файлов
+
+DocumentRoot "..\src\public_html"
+<Directory "/*/*/src/public_html">
+Options Indexes FollowSymLinks
+#AllowOverride None
+Require all granted
+</Directory>
+
+
+Require all granted
+Разрешает неограниченную авторизацию на сервере для доступа к указанной директории.
+С версии apache 2.4 доступ к директории задаётся именно так, так как по умолчанию все доступы закрыты (в более ранних версиях наоборот по умолчанию доступ был открыт).
+В версии apache 2.2 и ранее доступы давались так:
+Order allow, deny
+allow from all
+то есть сначала задавался порядок (в данном случае приоритет у операций разрешающих, а не у запрещающих), затем задавались конкретные разрешения/запрещения (в данном случае даётся разрешение для всех).
+
+Если доступа к серверу не будет, то вернётся ошибка
+403 forbidden
+you don't have permission on this server
+
+Если директива Require all granted задана, а доступа (например, через браузер) всё равно нет (возвращается ошибка 403), то нужно проверить правильно ли указан путь к директории в директиве Directory.
+
+Для директивы Directory есть одна особенность: если путь к DocumentRoot можно было указать относительным, то для Directory этого так просто не сделать, нужно идти от корня сервера, то есть по абсолютному пути.
+Это описано в документации
+http://httpd.apache.org/docs/2.4/mod/core.html#directory
+<Directory> and </Directory> are used to enclose a group of directives that will apply only to the named directory, sub-directories of that directory, and the files within the respective directories.
+Any directive that is allowed in a directory context may be used.
+Directory-path is either the full path to a directory, or a wild-card string using Unix shell-style matching.
+\In a wild-card string, ? matches any single character, and * matches any sequences of characters.
+You may also use [] character ranges.
+None of the wildcards match a `/' character, so <Directory "/*/public_html"> will not match /home/user/public_html, but <Directory "/home/*/public_html"> will match.
+
+Как вариант, для того, чтобы в этом случае жёстко не привязываться к местоположению DocumentRoot в директиве Directory (а для windows это ещё предполагает наличие в пути буквы диска, которая на разных машинах может меняться) можно использовать подстановочный символ (wildcard) звёздочку * с учётом того, что /*/public_html не отработает, а /*/*/public_html отработает по указанной в документации причине.
+
+
+#AllowOverride None
+В файле APACHE_HTTP_SERVER_HOME/bin/httpd.conf она расскомментирована, то есть файлы .htaccess запрещены (по умолчанию, разрешены), нам же надо, чтобы было как на хостинге, то есть чтобы было разрешено, поэтому закомментируем или удалим её.
+
+
+Options Indexes FollowSymLinks
+Директива Options FollowSymLinks разрешает apache следовать символическим ссылкам (как на хостингах).
+Директива Options Indexes указывает, что нужно возвращать содержимое каталога, если отсутствует индексный файл (как на хостингах).
+
+Для разработчика сайта же обычно требуется запретить просмотр содержимого каталога, поэтому он делает это в файле .htaccess директивой
+Options -Indexes
+то есть выключает эту директиву, чтобы отработало запрещение просмотра содержимого каталога, которое делается по умолчанию.
+
+
