@@ -1,0 +1,4 @@
+Как превратить текст в объект jquery?
+var html = "<button>click</button>";
+var j = $(html);
+$("body").append(j);
