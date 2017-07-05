@@ -1,0 +1,23 @@
+Запуск apache http server
+Самый простой способ - указать абсолютные пути, но придётся их править при переносе.
+
+Для относительных путей:
+Для правильного запуска нужно учесть, что в настройках веб-сервера apache директива ServerRoot ищется относительно текущей директории, из которой запущен apache в командной строке, а директива DocumentRoot задаёт текущую рабочую директорию (current working directory, cwd), с которой будет работать apache после запуска, apache ищет DocumentRoot относительно своего домашнего каталога.
+
+Допустим, 
+- запускной файл apache http server находится в каталоге
+projects\some_project\0_soft\httpd-2.4.26-Win64-VC15\Apache24\bin
+- ServerRoot для apache является каталог 
+projects\some_project\0_soft\httpd-2.4.26-Win64-VC15\Apache24
+- запускать будем с командного файла 
+projects\some_project\0_soft\apache_http_server_distr_httpd.conf.cmd
+- настройки находятся в файле 
+projects\some_project\0_soft\distr_httpd.conf
+- файлы php, который будет прикручиваться как модуль находятся в каталоге
+projects\some_project\0_soft\php-7.1.6-Win32-VC14-x64
+в том числе там находится php7apache2_4.dll и php.ini
+- рабочий каталог с файлами проекта
+projects\some_project\some_project\some_project
+
+
+
