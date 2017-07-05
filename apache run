@@ -19,5 +19,9 @@ projects\some_project\0_soft\php-7.1.6-Win32-VC14-x64
 - рабочий каталог с файлами проекта
 projects\some_project\some_project\some_project
 
-
+Тогда
+apache_http_server_distr_httpd.conf.cmd
+учтём, что путь к конфигурационному файлу ищется относительно ServerRoot, для этого достаточно указать cd (%cd%\distr_httpd.conf) или переместиться из рабочего каталога apache вверх до местоположения distr_httpd.conf (..\..\distr_httpd.conf)
+"%cd%\httpd-2.4.26-Win64-VC15\Apache24\bin\httpd.exe" -f "%cd%\distr_httpd.conf"
+cmd /k
 
