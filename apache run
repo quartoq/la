@@ -29,5 +29,9 @@ dist_httpd.conf
 в конфигурационном файле apache %cd% не укажешь, запускаем при помощи файла apache_http_server_distr_httpd.conf.cmd, то есть из каталога projects\projectName\0_soft, поэтому в качестве ServerRoot достаточно указать httpd-2.4.26-Win64-VC15\Apache24, чтобы добраться из каталога projects\projectName\0_soft до рабочего каталога apache
 ServerRoot "httpd-2.4.26-Win64-VC15\Apache24"
 
- DocumentRoot ищется относительно домашнего каталога apache, поэтому приходится делать выход вверх и вход в нужный каталог
- DocumentRoot "..\..\..\projectName\src\public_html"
+DocumentRoot ищется относительно домашнего каталога apache, поэтому приходится делать выход вверх и вход в нужный каталог
+DocumentRoot "..\..\..\projectName\src\public_html"
+ 
+Directory нужно всегда указывать от корня сервера, то есть идти по абсолютному пути (см. http://httpd.apache.org/docs/2.4/mod/core.html#directory)
+Для обхода этого ограничения можно использоваться подстановочный символ (wildcard) звёздочку * и учесть что /*/public_html не отработает, а /*/*/public_html отработает
+<Directory "/*/*/projectName/src/public_html">
