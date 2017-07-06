@@ -31,6 +31,10 @@ ServerRoot "httpd-2.4.26-Win64-VC15\Apache24"
 
 DocumentRoot ищется относительно домашнего каталога apache, поэтому приходится делать выход вверх и вход в нужный каталог
 DocumentRoot "..\..\..\projectName\src\public_html"
+если после запуска apache и открытия браузера вернётся ошибка 403
+Forbidden
+You don't have permission to access / on this server.
+то одной из причин может быть некорретно указанный путь к каталогу в директиве Directory
  
 Directory нужно всегда указывать от корня сервера, то есть идти по абсолютному пути (см. http://httpd.apache.org/docs/2.4/mod/core.html#directory)
 Для обхода этого ограничения можно использоваться подстановочный символ (wildcard) звёздочку * и учесть что /*/public_html не отработает, а /*/*/public_html отработает
