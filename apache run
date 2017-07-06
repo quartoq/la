@@ -35,3 +35,9 @@ DocumentRoot "..\..\..\projectName\src\public_html"
 Directory нужно всегда указывать от корня сервера, то есть идти по абсолютному пути (см. http://httpd.apache.org/docs/2.4/mod/core.html#directory)
 Для обхода этого ограничения можно использоваться подстановочный символ (wildcard) звёздочку * и учесть что /*/public_html не отработает, а /*/*/public_html отработает
 <Directory "/*/*/projectName/src/public_html">
+
+путь к каталогу php ищется относительно текущей директории, из которой запущен apache в командной строке
+LoadModule php7_module "php-7.1.6-Win32-VC14-x64\php7apache2_4.dll"
+AddType application/x-httpd-php .php
+PHPIniDir "php-7.1.6-Win32-VC14-x64"
+
