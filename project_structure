@@ -1,0 +1,30 @@
+projects
+  projectname_project
+    0_desc
+    0_soft
+      apache
+      php
+      phpstorm
+      apache_http_server_dist_httpd.conf.cmd
+      apache_http_server_src_httpd.conf.cmd
+      dist_httpd.conf
+      src_httpd.conf
+    projectname
+      dist
+      lib
+      src
+        public_html
+          css
+          fonts
+          img
+          js
+          less
+          .htaccess
+          index.php
+          
+        
+      
+
+      
+  
+    
