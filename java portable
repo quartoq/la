@@ -1,0 +1,134 @@
+java
+
+64-разрядная версия jdk, потребуется для работы 64-разрядной версии phpstorm (32-разрядная версия phpstorm запускается так, все необходимые файлы java для этого есть в дистрибутиве phpstorm).
+
+Для начала необходимо скачать jdk (обычно качают последнюю версию), для этого идём на оф. сайт
+oracle.com (откроется https://www.oracle.com/index.html),
+далее идём в меню Downloads, там есть пункт Java SE
+На открывшейся странице
+http://www.oracle.com/technetwork/java/javase/downloads/index.html
+кликаем по кнопке JDK, перевело на страницу
+http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+где согласившись с лицензией можно кликнуть по ссылкам для скачки 32- или 64-разрядного exe-установщика jdk:
+Windows x86	189.36 MB  	jdk-8u121-windows-i586.exe
+Windows x64	195.51 MB  	jdk-8u121-windows-x64.exe
+
+
+Для получения портативной версии jdk из exe-установщика необходимо сделать следующее:
+- извлекаем из exe-архива установщика файл tools.exe и помещаем его в каталог, в котором хотим получить каталог с jdk.
+Сделать это можно через GUI (графический интерфейс пользователя) программы 7-zip.
+Данный файл содержится по следующем пути
+jdk-8u121-windows-x64.exe\.rsrc\1033\JAVA_CAB10\111\
+- распаковываем tools.exe, например, при помощи того же 7-zip.
+На выходе обычно получают каталог с соответствующим архивом названию, в данном случае это будет каталог tools.
+Даём этому каталогу боле смысловое имя, например, такое же как у установщика, то есть
+jdk-8u121-windows-x64 
+В данном каталоге уже содержатся все необходимые для jdk файлы, так как они был в ахиве tools.exe, осталось только дораспаковать там несколько pack-файлов (запакованы утилитой pack200) при помощи утилиты unpack200, что и сделано ниже.
+
+- распаковываем pack-файлы внутри корневого каталога jdk при помощи утилиты unpack:
+
+открываем командную строку cmd.exe, например, так
+win+r -> cmd
+
+заходим в командной строке в корневой для jdk-каталог, который только что создали
+cd /d 0_projects\project_name_project\0_soft\jdk-8u121-windows-x64
+Ключ /d используется для того, чтобы сменить букву диска для текущего каталога (обычно она C:).
+
+Посмотреть состав каталогов и файлов внутри текущего можно командой
+dir /bir
+Ключ /b используется для того, чтобы на выходе отображались только имена файлов и каталогов.
+Отобразить имена файлов соотетствующих маске (например, найти все *.pack.jar файлы и отобразить их имена)
+dir /B /S *.pack.jar
+/B - вывод только имен файлов
+/S  - отображение файлов из указанного каталога и всех его подкаталогов (иначе смотрит только в текущем)
+
+
+
+Теперь собственно используем утилиту unpack200 (bin\unpack200.exe) для расапаковки всех pack-файлов в соответствующие jar-файлы.
+Для данной версии 7 pack-файлов оказались в каталоге jre/lib, один в каталоге lib.
+Делается это командой
+for /r %x in (*.pack) do .\bin\unpack200 -r "%x" "%~dx%~px%~nx.jar".
+
+
+Данная команда-цикл for
+последовательно выполняет записанную после do команду
+.\bin\unpack200 -r
+для каждого элемента набора
+(*.pack)
+(в данном случае это набор файлов с расширением .pack)
+заданного в скобках после in
+с параметрами
+"%x" и "%~dx%~px%~nx.jar"
+которые заданы после in.
+Утилита unpack200 распакует файл, который задан по имени в качестве первого параметра (здесь это значение переменной %x, в которую подставляются имена файлов из набора (*.pack) в файл, который задан вторым параметром (здесь это %~dx%~px%~nx.jar).
+Опция -r используется для того, чтобы удалить файлы распаковываемых архивов после распаковки (можно этого не делать).
+Ключ /r команды for используется для того, чтобы поиск элементов набора осуществлялся рекурсивно, то есть и для вложенных каталогов тоже.
+Так как после /r не указано имя каталога, то выполнение команды начинается с текущего каталога, в котором выполненн команда for.
+В команде for
+%~dx - из переменной x выделено только буква диска
+%~px - из переменной x выделено только путь до файла
+%~nx - из переменной x выделено только имя файла
+Таким образом, на выходе %~dx%~px%~nx.jar превращается в имя jar-файла, который будет располагаться по тому же пути и иметь тоже имя, что и распаковываемый pack-файл.
+Перед командой .\bin\unpack200 -r можно указать @, чтобы подавлялся вывод этой команды в командную строку, выглядит так @.\bin\unpack200 -r
+
+- проверить, что всё работает
+.\bin\java -version
+
+
+Есть и более сложный путь, если сначала создавать распакованные файлы с именами pack.jar, а потом переименовывать их просто в .jar, но особого смысла в этом не видно.
+for /r %x in (*.pack) do .\bin\unpack200" "%x" "%x.jar"
+другая подобная команда
+for /R %f in (.\*.pack) do @".\bin\unpack200" -r -v -l "" "%f" "%~pf%~nf.jar"﻿
+
+
+
+
+видео
+https://www.youtube.com/watch?v=ZujbQlkkyrg
+for /R %f in (.\*.pack) do @"C:\jdk-1.8u73\bin\unpack200" -r -v -l "" "%f" "%~pf%~nf.jar"
+
+
+текстом
+http://www.brucalipto.org/java/how-to-create-a-portable-jdk-1-dot-8-on-windows/
+How to Create a Portable JDK 1.8 on Windows
+PUBLISHED DEC 27TH, 2013 | COMMENTS
+Java logoAs a Java developer sometimes I need a version of Java Development Kit (JDK) that is not the one installed on my PC. Oracle Java installer on Windows does too many things that I cannot control (like changing the JVM used by browsers to run applets). As of this writing Java 8 is not yet available for general consumption but you can get an early access release here. Open the downloaded file with 7-zip and then open the tools.zip you find inside. Extract everything to a convenient path like C:\jdk-1.8-ea. Now it is shell time so open a DOS console (Start->Run…->cmd) and type:
+
+Create a portable JDK 1.8
+1
+2
+> cd C:\jdk-1.8-ea
+> for /r %x in (*.pack) do C:\jdk-1.8-ea\bin\unpack200 "%x" "%x.jar"
+Now you are almost done but you need to rename some files:
+
+Look for all files that ends with .pack.jar
+> dir /B /S *.pack.jar
+C:\jdk-1.8-ea\jre\lib\charsets.pack.jar
+C:\jdk-1.8-ea\jre\lib\deploy.pack.jar
+C:\jdk-1.8-ea\jre\lib\javaws.pack.jar
+C:\jdk-1.8-ea\jre\lib\jsse.pack.jar
+C:\jdk-1.8-ea\jre\lib\plugin.pack.jar
+C:\jdk-1.8-ea\jre\lib\rt.pack.jar
+C:\jdk-1.8-ea\jre\lib\ext\jfxrt.pack.jar
+C:\jdk-1.8-ea\jre\lib\ext\localedata.pack.jar
+C:\jdk-1.8-ea\lib\tools.pack.jar
+Rename all these files removing the .pack part (eg.: rename charsets.pack.jar to charsets.jar):
+
+Rename all files that ends with .pack.jar
+> ren C:\jdk-1.8-ea\jre\lib\charsets.pack.jar charsets.jar
+> ren C:\jdk-1.8-ea\jre\lib\deploy.pack.jar deploy.jar
+> ren C:\jdk-1.8-ea\jre\lib\javaws.pack.jar javaws.jar
+> ren C:\jdk-1.8-ea\jre\lib\jsse.pack.jar jsse.jar
+> ren C:\jdk-1.8-ea\jre\lib\plugin.pack.jar plugin.jar
+> ren C:\jdk-1.8-ea\jre\lib\rt.pack.jar rt.jar
+> ren C:\jdk-1.8-ea\jre\lib\ext\jfxrt.pack.jar jfxrt.jar
+> ren C:\jdk-1.8-ea\jre\lib\ext\localedata.pack.jar localedata.jar
+> ren C:\jdk-1.8-ea\lib\tools.pack.jar tools.jar
+Finally test you new portable JDK 1.8:
+
+Test portable JDK 1.8
+C:\jdk-1.8-ea>.\bin\java -version
+java version "1.8.0-ea"
+Java(TM) SE Runtime Environment (build 1.8.0-ea-b121)
+Java HotSpot(TM) Client VM (build 25.0-b63, mixed mode)
+I hope this tutorial can help you… if you find errors please report them to me and I will correct as soon as possible.
