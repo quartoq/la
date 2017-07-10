@@ -1,0 +1,16 @@
+Настройки phpstorm
+
+Настройки в phpstorm открываются из меню File -> Settings или через сочетание клавиш ctrl+alt+s.
+
+Ниже приведы некоторые настройки, которые можно сделать в phpstorm для более удобной работы:
+- Appearance & Behaviour - System Settings - Updates - снять Automatically check updates
+
+- Editor - Code Style - php - use tab character
+то же самое для других языков html, javascript, css.
+В php-файлах текст вне кода php относится к html.
+
+- Editor - General - Change Font Size (Zoom) with Ctrl + Mouse Wheel
+- Editor - General - Use soft wraps in editor
+- Editor - General - Appearance - Show whitespaces - выбрать, что из невидимых символов отображать
+- Editor - Colors & Fonts - General - Text - Default Text - сделать поярче (текст в редакторе)
+- Editor - Colors & Fonts - General - Text - Whitespaces - сделать поярче (отображаемые невидимые символы)
