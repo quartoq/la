@@ -1,0 +1,48 @@
+Внешние инструменты и phpstorm
+
+
+Возможно когда-нибудь захочется запускать какие-то внешние инструменты, не переключаясь со среды phpstorm, для осуществления этого в среде phpstorm есть 
+
+По умолчанию ant-а нет в phpstorm, нет каких-то особых пунктов, связанных с ant, но можно прикрутить ant к phpstorm как внешний инструмент.
+
+- установить ant
+- в настройках phpstorm: settings - tools - external tools нажать на кнопку плюсика для добавления нового внешнего инструмента - откроется окно для добавления
+задаём имя нашего внешнего инструмента, как оно будет представлено в среде, логично называть просто ant
+в области tool settings этого окна вводим в поле Program путь к запускному bat-файлу ant-а - ant.bat
+например,
+C:\apache-ant-1.9.4\bin\ant.bat
+в поле Parameters пишем -f путь_к_build-файлу
+например,
+C:\projects\build.xml
+в поле Working Directory можно ввести макрос $FileDir$, нажав справа кнопку insert macro...
+что наверное означает, что рабочей директорией будет место расположения build-файла
+
+там в области Show in по умолчанию проставлены все галочки, где можно будет найти этот внешний инструмент, например, в главном меню
+для запуска ant из главного меню надо зайти в пункт tools -> external tools -> имя внешнего инструмента (у нас просто ant называется))
+после запуска снизу среды phpstorm откроется консоль, на которую будут выводиться резултаты выполнения ant-ом указанного в настройках build-файла.
+например, можно сделать build.xml, который будет собирать из файлов каталога war-архив и будет копировать его в директорию autodeploy weblogic-сервера., то есть нам уже не надо будет выходить за рамки среды, чтобы запустить этот файл.
+
+external tools также доступны из контекстного меню, если не отключить это в настройках (а нафига отключать пока неясно, если проектов не дох-я)
+
+
+
+
+
+ Using Ant with PhpStorm
+
+PhpStorm hasn't support for Ant and there is no plugins to add Ant support, you need to configure manually Ant support in PhpStorm :
+
+Install Ant (e.g. with the binary distribution: http://ant.apache.org/bindownload.cgi)
+Extract the archive by example into C:\ant on windows OS
+Open File > Settings > External Tools
+Press the green plus to add a new tool
+Fill out the form
+Name: Ant (or a name that you will remember)
+Group: Leave empty for quicker selection or fill in whatever you like
+Under Options, only check the box "Open Console"
+Show in: Leave it as is
+Program: Link to the C:\ant\bin\ant.bat inside the Ant installation folder (or an equivalent file on non windows OS)
+Parameters: -f $FileName$
+Working Directory: $FileDir$
+Submit!
+Once the external tool is configured, rightclick the build/build.xml file and select the tool from the List (e.g. look for Ant or [GroupName] > Ant if you specified a group)
