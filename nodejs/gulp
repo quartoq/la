@@ -99,24 +99,39 @@ gulp.task('default', ['one', 'two']);
 
 все задачи можно делать через pipe, либо воспользоваться плагином pump, что вроде бы аккуратнее
 например, две задачи sass() и cssmin() через pipe выглядят так
-.pipe(sass())
+sass()
 .pipe(cssmin())
 а через pump так
  pump([
   sass(),
-  (cssmin()
+  cssmin()
 ]);
 
 
 копирование файлов можно осуществить без плагинов, просто через src и dest
-
+var gulp = require('gulp');
+var pump = require('pump');
 gulp.task("copy", function () {
     pump([
         gulp.src("src/**/*.css"),
         gulp.dest("dist")
     ]);
+//тоже самое через pipe:
+//gulp.src("src/**/*.css").pipe(gulp.dest("dist"));
 });
+gulp.task('default', ["copy"]);
 скопирует все css-файлы из каталога src и поместит их в соответствующие каталоги в каталоге dist
+
+
+очистка каталога
+var gulp = require('gulp');
+var clean = require('gulp-clean');
+gulp.task("default", function () {
+    return gulp.src("dist/css/*", {read: false})
+        .pipe(clean());
+});
+очистит каталог dist/css
+read: false используется для ускорения, так как src перестаёт читать файлы (их всё равно удалять)
 
 
 
