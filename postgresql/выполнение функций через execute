@@ -1,0 +1,2 @@
+execute 'select jsonb_build_array(1,2,3,4,5)' into v_jsonb;
+без select не заработает
