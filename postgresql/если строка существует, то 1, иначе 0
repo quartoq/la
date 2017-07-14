@@ -1,0 +1,9 @@
+select 
+    coalesce(
+    (select 1 
+     from some_table
+     where some_cokumn = 23, 0) as cnt
+from 
+ test_table
+
+смотрим на функции для работы на уровне всего запроса, так как если в выборке не будет данных, то значения столбцов для проверки будет не взять
