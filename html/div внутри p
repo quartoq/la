@@ -1,1 +1,28 @@
-нельзя вкладывать p внутрь div иначе будет попытка закрыть этот тег при встрече div и в конце закроется последний p добавлением перед ним открывающего p
+если вложить внутрь p div то разметка сломается
+<ul>
+    <li id="li_1">foo</li>
+    <li id="li_2">
+        <p id="p_1" class="paragraph"> <div id="div_1">bar</div>sadfasdf </p>
+    </li>
+</ul>
+<script>
+    console.log('aaaa='+ $("#div_1").parents('li').first().attr('id')) ;
+
+    console.log('bbb='+ $("#div_1").parent().parent().html());
+</script>
+
+в chrome выведет
+aaaa=li_2
+some.html:12 bbb=
+    <li id="li_1">foo</li>
+    <li id="li_2">
+        <p id="p_1" class="paragraph"> </p><div id="div_1">bar</div>sadfasdf <p></p>
+    </li>
+    
+в ie
+aaaa=li_2
+bbb=
+<li id="li_1">foo</li>
+   <li id="li_2">
+ <p class="paragraph" id="p_1"> <div id="div_1">bar</div>sadfasdf <p></p>
+ </li>
