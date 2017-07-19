@@ -1,0 +1,7 @@
+<div class="ui checkbox checked"><input type="checkbox" checked=""/></div>
+<div class="ui checkbox checked"><input type="checkbox"/></div>
+<script>
+    $(".ui.checkbox").checkbox();
+</script>
+
+в input обязательно указать checked или checked="", иначе чекбокс не будет чекнутым
