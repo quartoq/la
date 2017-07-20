@@ -1,0 +1,17 @@
+<table>
+    <tr>
+        <td></td>
+        <td>
+            <div class="ui checkbox"><input tabindex="0" class="hidden" type="checkbox"><label></label></div>
+        </td>
+        <td>
+            <div class="ui checkbox"><input id="che" tabindex="0" class="hidden" type="checkbox"><label></label></div>
+        </td>
+    </tr>
+</table>
+<script>
+    console.log( '$("#che").closest("tr").first().children("td").length = ' + $( "#che" ).closest( "tr" ).first().children( "td" ).length );//4
+    console.log( '$( "#che" ).closest( "td" ).length = ' + $( "#che" ).closest( "td" ).length );//1
+    console.log( '$( "#che" ).closest( "td" ).index( $( "#che" ).closest( "tr" ).first().children( "td" ) ) = ' + $( "#che" ).closest( "td" ).index( $( "#che" ).closest( "tr" ).first().children( "td" ) ) );//-1
+    console.log( '$( "#che" ).closest( "tr" ).first().children( "td" ).index( $( "#che" ).closest( "td" ) ) = ' + $( "#che" ).closest( "tr" ).first().children( "td" ).index( $( "#che" ).closest( "td" ) ) );//2
+</script>
