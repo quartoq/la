@@ -2,7 +2,7 @@ select
     coalesce(
     (select 1 
      from some_table
-     where some_cokumn = 23, 0) as cnt
+     where some_column = 23, 0) as cnt
 from 
  test_table
 
