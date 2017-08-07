@@ -50,7 +50,7 @@ Directory-path is either the full path to a directory, or a wild-card string usi
 You may also use [] character ranges.
 None of the wildcards match a `/' character, so <Directory "/*/public_html"> will not match /home/user/public_html, but <Directory "/home/*/public_html"> will match.
 
-Как вариант, для того, чтобы в этом случае жёстко не привязываться к местоположению DocumentRoot в директиве Directory (а для windows это ещё предполагает наличие в пути буквы диска, которая на разных машинах может меняться) можно использовать подстановочный символ (wildcard) звёздочку * с учётом того, что /*/public_html не отработает, а /*/*/public_html отработает по указанной в документации причине.
+Как вариант, для того, чтобы в этом случае жёстко не привязываться к местоположению DocumentRoot в директиве Directory (а для windows это ещё предполагает наличие в пути буквы диска, которая на разных машинах может меняться) можно использовать подстановочный символ (wildcard) звёздочку * для каждого каталога в пути, например, если каталог public_html находится по пути C:\a\b\c\public_html, то путь к нему можно задать как /*/*/*/public_html.
 
 
 #AllowOverride None
