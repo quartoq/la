@@ -1,0 +1,64 @@
+//need to be sorted by parent_id
+    var data = [
+        { name: "name1", id: 1, parent_id: 0, level: 0, path: "" },
+        { name: "name1", id: 2, parent_id: 0, level: 0, path: "" },
+        { name: "name2", id: 3, parent_id: 1, level: 1, path: "" },
+        { name: "name12", id: 4, parent_id: 1, level: 1, path: "" },
+        { name: "name111", id: 5, parent_id: 2, level: 2, path: "" },
+        { name: "name111", id: 3, parent_id: 2, level: 2, path: "" }
+    ];
+
+    function stuffArray( arr ) {
+        var obj = {};
+        for ( var i = 0; i < arr.length; i++ ) {
+            obj[ arr[ i ].id ] = arr[ i ];
+        }
+        console.log("new array:");
+        console.log(obj);
+        return obj;
+
+    }
+    var arr = stuffArray( data );
+
+
+    function makeTreeData( obj ) {
+        //debugger;
+        var tree = [];
+        for ( var key in obj ) {
+            if ( obj[ key ].parent_id == 0 ) {
+                tree.push(obj[ key ]);
+            } else {
+                if (!obj[ obj[ key ].parent_id ]["children"]) {
+                    obj[ obj[ key ].parent_id ]["children"] = [];
+                }
+                obj[ obj[ key ].parent_id ]["children"].push(obj[key]);
+                //el.children.push( obj[ key ] );
+            }
+        }
+        console.log( "tree:" );
+        console.log( tree );
+        return tree;
+    }
+    var data = makeTreeData( arr );
+
+
+    var data_ = [
+        {
+            name: 'node1', id: 1,
+            children: [
+                { name: 'child1', id: 2 },
+                { name: 'child2', id: 3 }
+            ]
+        },
+        {
+            name: 'node2', id: 4,
+            children: [
+                { name: 'child3', id: 5 }
+            ]
+        }
+    ];
+    $( '#tree1' ).tree( {
+        data: data,
+        autoOpen: true,
+        dragAndDrop: true
+    } );
