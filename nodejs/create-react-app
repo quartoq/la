@@ -24,3 +24,5 @@ some_folder
     package.json
     package.lock.json
     README.md
+
+заходим в каталог my-app и делаем npm install, чтобы в этом каталоге создался каталог node_modules (если он не был создан ранее) и в него подгрузились все пакеты, указанные в package.json
