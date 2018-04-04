@@ -26,3 +26,25 @@ some_folder
     README.md
 
 заходим в каталог my-app и делаем npm install, чтобы в этом каталоге создался каталог node_modules (если он не был создан ранее) и в него подгрузились все пакеты, указанные в package.json
+
+package.json
+{
+  "name": "myapp",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "react-scripts": "1.1.4",
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
+
+
+npm start (запускает скрипты, указанные в секции scripts файла package.json)
+и запустится модуль react-script с параметром start, который запустит браузер ОС по умолчанию с адресом http://localhost:3000/
