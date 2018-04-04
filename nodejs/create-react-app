@@ -1,0 +1,26 @@
+create-react-app - модуль для создания шаблона проекта, использующего react
+установка
+npx create-react-app my-app - локально скачает модуль create-react-app и запустит его для создания шаблона в каталоге myapp (создаст его)
+можно также сначала поставить этот модуль глобально и использовать в любых проектах 
+npm install -g create-react-app
+cd some_folder_for_project
+create-react-app my-app
+в результате будут создан каталог my-app, и в нём воссоздана вся архитектура шаблона проекта на react
+
+состав каталога my-app
+some_folder
+  my-app
+    public
+      favicon.ico
+      index.html
+      manifest.json
+    src
+      App.css
+      App.js
+      App.test.js
+      index.css
+      logo.svg
+      registerServiceWorker.js
+    package.json
+    package.lock.json
+    README.md
