@@ -1,0 +1,12 @@
+npx - утилита для запуска npm-пакетов
+
+npx появляется в каталоге AppData\Roaming\npm при установке последних версий npm как два файла npx.cmd и npx
+npx используется для того, чтобы позволить управлять cli-инструментами, не устанавливая их глобально (npm install -g)
+например, на главной странице  https://gulpjs.com/
+приведены базовые команды для использования gulp
+npm install gulp-cli -g
+npm install gulp -D
+touch gulpfile.js
+gulp --help
+
+так вот благодаря npx можно избавиться от строчки npm install gulp-cli -g
