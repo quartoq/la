@@ -7,7 +7,7 @@ cd some_folder_for_project
 create-react-app my-app
 в результате будут создан каталог my-app, и в нём воссоздана вся архитектура шаблона проекта на react
 
-состав каталога my-app (в документации можно посмотреть) 
+состав каталога my-app (в документации можно посмотреть https://github.com/facebook/create-react-app/blob/master/README.md#creating-an-app) 
 some_folder
   my-app
 ├── README.md
