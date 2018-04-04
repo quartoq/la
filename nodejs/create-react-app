@@ -7,23 +7,25 @@ cd some_folder_for_project
 create-react-app my-app
 в результате будут создан каталог my-app, и в нём воссоздана вся архитектура шаблона проекта на react
 
-состав каталога my-app
+состав каталога my-app (в документации можно посмотреть) 
 some_folder
   my-app
-    public
-      favicon.ico
-      index.html
-      manifest.json
-    src
-      App.css
-      App.js
-      App.test.js
-      index.css
-      logo.svg
-      registerServiceWorker.js
-    package.json
-    package.lock.json
-    README.md
+├── README.md
+├── node_modules
+├── package.json
+├── .gitignore
+├── public
+│   └── favicon.ico
+│   └── index.html
+│   └── manifest.json
+└── src
+    └── App.css
+    └── App.js
+    └── App.test.js
+    └── index.css
+    └── index.js
+    └── logo.svg
+    └── registerServiceWorker.js
 
 заходим в каталог my-app и делаем npm install, чтобы в этом каталоге создался каталог node_modules (если он не был создан ранее) и в него подгрузились все пакеты, указанные в package.json
 
