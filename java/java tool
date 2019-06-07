@@ -1,0 +1,10 @@
+java -jar app.jar
+
+если используется каталог с библиотеками или другим файлами нужно использовать вариант запуска с указанием classpath
+
+c:\Java\jdk-12.0.1\bin\java.exe  -cp "app.jar;libs/*"  com.some.MainClass 
+com.some.MainClass - main класс в app.jar, указана
+
+META-INF/manifest.mf в app.jar
+Main-Class:com.some.MainClass
+Class-Path: libs/* не работает, только если указать путь ко всем jar в libs, а так искал бы в каталоге, в котором находится jar каталог libs и в нём все файлы с расширением jar
