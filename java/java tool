@@ -3,7 +3,7 @@ java -jar app.jar
 если используется каталог с библиотеками или другим файлами нужно использовать вариант запуска с указанием classpath
 
 windows:
-java -cp "app.jar;libs/*"  com.some.MainClass 
+java -cp "app.jar;libs/*"  com.some.MainClass список_через_пробел_args_для_класса
 linux:
 java -cp "app.jar:libs/*"  com.some.MainClass 
 com.some.MainClass - main класс в app.jar, указана
